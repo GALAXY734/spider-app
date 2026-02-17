@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>@spider.slk</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle at center,#140000,#000814 70%);
+    font-family:Arial, Helvetica, sans-serif;
+    overflow:hidden;
+}
+
+.card{
+    width:360px;
+    background:#0d0d0d;
+    border-radius:25px;
+    padding:22px;
+    box-shadow:0 0 25px red, 0 0 25px blue inset;
+    animation:glow 2s infinite alternate;
+    position:relative;
+    overflow:hidden;
+}
+
+@keyframes glow{
+    from{ box-shadow:0 0 20px red, 0 0 20px blue inset; }
+    to{ box-shadow:0 0 40px blue, 0 0 40px red inset; }
+}
+
+.title{
+    text-align:center;
+    color:red;
+    font-weight:bold;
+    font-size:22px;
+    margin-bottom:20px;
+    text-shadow:0 0 15px blue;
+}
+
+.spider{
+    position:absolute;
+    font-size:18px;
+    animation:walk linear infinite;
+    pointer-events:none;
+}
+
+@keyframes walk{
+    0%{ transform:translateY(-20px) translateX(0); }
+    50%{ transform:translateY(250px) translateX(20px); }
+    100%{ transform:translateY(-20px) translateX(0); }
+}
+
+.option{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+    color:white;
+    font-size:14px;
+}
+
+input[type="checkbox"]{
+    width:18px;
+    height:18px;
+    accent-color:red;
+}
+
+.sliderBox{
+    margin-bottom:18px;
+    color:white;
+    font-size:13px;
+}
+
+.sliderHeader{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:4px;
+}
+
+.sliderValue{
+    color:red;
+    font-weight:bold;
+}
+
+input[type="range"]{
+    width:100%;
+    accent-color:blue;
+}
+
+select{
+    width:100%;
+    padding:9px;
+    margin-top:10px;
+    border-radius:12px;
+    border:none;
+    background:#111;
+    color:white;
+    font-size:14px;
+}
+
+.btn{
+    margin-top:22px;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:30px;
+    font-weight:bold;
+    font-size:16px;
+    color:white;
+    background:linear-gradient(90deg,red,blue);
+    cursor:pointer;
+    box-shadow:0 0 25px red;
+    transition:0.25s;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 35px blue;
+}
+
+.hidden{
+    display:none;
+}
+
+.notification{
+    position:fixed;
+    top:30px;
+    left:50%;
+    transform:translateX(-50%) translateY(-20px);
+    background:#0d0d0d;
+    padding:16px 40px;
+    border-radius:25px;
+    color:red;
+    font-weight:bold;
+    font-size:18px;
+    box-shadow:0 0 35px blue;
+    text-shadow:0 0 15px red;
+    opacity:0;
+    transition:0.4s ease;
+    z-index:999;
+}
+
+.notification.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0px);
+}
+</style>
+</head>
+
+<body>
+
+<div class="notification" id="notify">
+🎭INJETADO🎭
+</div>
+
+<div class="card">
+
+    <div class="spider" style="left:10%; animation-duration:6s;">🕷</div>
+    <div class="spider" style="left:30%; animation-duration:8s;">🕷</div>
+    <div class="spider" style="left:55%; animation-duration:7s;">🕷</div>
+    <div class="spider" style="left:75%; animation-duration:9s;">🕷</div>
+
+    <div class="title">@spider.slk</div>
+
+    <div class="option">
+        <span>Modo Foco</span>
+        <input type="checkbox" id="cb1">
+    </div>
+
+    <div class="option">
+        <span>Mira Chiclete</span>
+        <input type="checkbox" id="cb2">
+    </div>
+
+    <div class="option">
+        <span>Mira Bomba</span>
+        <input type="checkbox" id="cb3">
+    </div>
+
+    <div class="option">
+        <span>Capa & Tchau 👋</span>
+        <input type="checkbox" id="cb4">
+    </div>
+
+    <div class="sliderBox">
+        <div class="sliderHeader">
+            <span>Intensidade</span>
+            <span class="sliderValue" id="val1">50</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" oninput="updateValue(this,'val1')">
+    </div>
+
+    <div class="sliderBox">
+        <div class="sliderHeader">
+            <span>Sensi Xitada</span>
+            <span class="sliderValue" id="val2">50</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" oninput="updateValue(this,'val2')">
+    </div>
+
+    <div class="sliderBox">
+        <div class="sliderHeader">
+            <span>A.I.M</span>
+            <span class="sliderValue" id="val3">50</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" oninput="updateValue(this,'val3')">
+    </div>
+
+    <select id="areaSelect">
+        <option>Peito</option>
+        <option>Cabeça</option>
+        <option>Corpo</option>
+    </select>
+
+    <div class="sliderBox hidden" id="headBar">
+        <div class="sliderHeader">
+            <span>Ajuste Cabeça</span>
+            <span class="sliderValue" id="val4">50</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" oninput="updateValue(this,'val4')">
+    </div>
+
+    <button class="btn" onclick="inject()">⚙️INJETAR⚙️</button>
+
+</div>
+
+<!-- SONS CHECKBOX -->
+<audio id="sound1" src="https://assets.mixkit.co/sfx/preview/mixkit-game-notification-wave-alarm-987.wav"></audio>
+<audio id="sound2" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-retro-jump-223.wav"></audio>
+<audio id="sound3" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-explosion-2759.wav"></audio>
+<audio id="sound4" src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.wav"></audio>
+
+<!-- SOM GERAL -->
+<audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-interface-click-1126.wav"></audio>
+
+<!-- SOM INJETAR -->
+<audio id="injectSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-explosion-2759.wav"></audio>
+
+<script>
+function updateValue(slider, id){
+    document.getElementById(id).textContent = slider.value;
+}
+
+const select = document.getElementById("areaSelect");
+const headBar = document.getElementById("headBar");
+const clickSound = document.getElementById("clickSound");
+const injectSound = document.getElementById("injectSound");
+
+function playSound(id){
+    const sound = document.getElementById(id);
+    sound.currentTime = 0;
+    sound.play().catch(()=>{});
+}
+
+document.getElementById("cb1").onclick = () => playSound("sound1");
+document.getElementById("cb2").onclick = () => playSound("sound2");
+document.getElementById("cb3").onclick = () => playSound("sound3");
+document.getElementById("cb4").onclick = () => playSound("sound4");
+
+document.querySelectorAll("input[type='range'], select").forEach(el=>{
+    el.addEventListener("click", ()=>{
+        clickSound.currentTime = 0;
+        clickSound.play().catch(()=>{});
+    });
+});
+
+select.addEventListener("change", function(){
+    if(select.value === "Cabeça"){
+        headBar.classList.remove("hidden");
+    } else {
+        headBar.classList.add("hidden");
+    }
+});
+
+function inject(){
+    injectSound.currentTime = 0;
+    injectSound.play().catch(()=>{});
+
+    const notify = document.getElementById("notify");
+    notify.classList.add("show");
+
+    setTimeout(()=>{
+        notify.classList.remove("show");
+    },3000);
+}
+</script>
+
+</body>
+          </html>
